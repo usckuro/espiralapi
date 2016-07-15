@@ -17,7 +17,7 @@ use Usckuro\Espiral\Api\Exceptions\EASaleException;
 use Usckuro\Espiral\Api\Providers\Espiral\EspiralAdapter;
 use GuzzleHttp\Client;
 
-class EspiralApi {
+class EspiralApi extends EspiralAdapter{
 
     const BASE_URI = 'https://osciespiralapp.com/EspiralAPI/recursosweb/servicios/';
 

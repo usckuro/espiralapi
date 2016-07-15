@@ -64,19 +64,13 @@ abstract class AbstractServiceProvider extends ServiceProvider{
     protected function registerEspiralProvider()
     {
         $this->app->singleton('usckuro.espiral.api.provider.espiral', function ($app) {
-
-            $provider = 'Usckuro\Espiral\Api\Providers\Espiral\EspiralAdapter';
-
-            return $app->make(
-                $provider,
-                [$this->config('user'), $this->config('password'), $this->config('mode')]
-            );
+            new EspiralAdapter($this->config('user'), $this->config('password'), $this->config('mode'));
         });
     }
 
     protected function registerEspiralApi(){
         $this->app->singleton('usckuro.espiral.api.espiralapi', function($app){
-            return new EspiralApi($app['usckuro.espiral.api.provider.espiral']);
+            return new EspiralApi(new EspiralAdapter($this->config('user'), $this->config('password'), $this->config('mode')));
         });
     }
 
