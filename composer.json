@@ -2,8 +2,9 @@
   "name":"usckuro/espiralapi",
   "description":"library to connect to espiral with laravel",
   "keywords": [
-    "encrypt",
-    "decrypt"
+    "espiral",
+    "api",
+    "sales"
   ],
   "require": {
     "php": ">=5.3.9",
