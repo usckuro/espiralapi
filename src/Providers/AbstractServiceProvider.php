@@ -43,7 +43,7 @@ abstract class AbstractServiceProvider extends ServiceProvider{
     abstract public function boot();
 
     public function register(){
-        $this->app->singleton('easale', function ($app) {
+        $this->app->singleton(EASale::class, function ($app) {
             return new EASale(new EspiralAdapter($this->config('user'), $this->config('password'), $this->config('mode')));
         });
 
