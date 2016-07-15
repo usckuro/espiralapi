@@ -12,6 +12,7 @@
 
 namespace Usckuro\Espiral\Api\Validators;
 
+use Carbon\Carbon;
 use Usckuro\Espiral\Api\Exceptions\EACardException;
 
 class CardValidator extends Validator{
@@ -45,9 +46,21 @@ class CardValidator extends Validator{
     }
 
     public function validateExpirationDate($date){
-        if(!preg_match("/^(0[1-9]|1[0-2])/(0[1-9]|[1-2][0-9]|3[0-1])$/", $date)){
+        $actual_date = Carbon::now()->format('m/y');
+
+        if(!preg_match("/^(0[1-9]|1[0-2])\/([0-9]{2})$/", $date)){
             throw new EACardException('Invalid Expiration Date');
         }
+
+        $date_split = explode('/', $date);
+        $actual_date_split = explode('/', $actual_date);
+
+        if($actual_date_split[1] > $date_split[1])
+            throw new EACardException('Expired Card');
+
+        if($actual_date_split[1] == $date_split[1] && $actual_date_split[0] < $date_split[0])
+            throw new EACardException('Expired Card');
+
         return true;
     }
 
