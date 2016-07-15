@@ -14,6 +14,7 @@
 namespace Usckuro\Espiral\Api;
 
 use Usckuro\Espiral\Api\Exceptions\EASaleException;
+use Usckuro\Espiral\Api\Providers\Espiral\EspiralAdapter;
 use Usckuro\Espiral\Api\Validators\SaleValidator;
 
 class EASale extends EspiralApi {
@@ -27,10 +28,9 @@ class EASale extends EspiralApi {
     public $control_number;
     public $reference;
 
-    function __construct($amount, $control_number, $reference)
+    function __construct(EspiralAdapter $espiralApi)
     {
-        $this->amount =  (new SaleValidator())->check($amount);
-        $this->control_number = $control_number;
+        parent::__construct($espiralApi);
     }
 
     /**
@@ -55,6 +55,33 @@ class EASale extends EspiralApi {
     public function getReference()
     {
         return $this->reference;
+    }
+
+    /**
+     * @param void $amount
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = (new SaleValidator())->check($amount);
+        return $this;
+    }
+
+    /**
+     * @param mixed $control_number
+     */
+    public function setControlNumber($control_number)
+    {
+        $this->control_number = $control_number;
+        return $this;
+    }
+
+    /**
+     * @param mixed $reference
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+        return $this;
     }
 
     /**

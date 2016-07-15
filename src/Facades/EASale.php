@@ -16,5 +16,5 @@ namespace Usckuro\Espiral\Api\Facades;
 use Illuminate\Support\Facades\Facade;
 
 class EASale extends Facade{
-    protected static function getFacadeAccessor(){ return 'usckuro.espiral.api.sale'; }
+    protected static function getFacadeAccessor(){ return 'easale'; }
 }

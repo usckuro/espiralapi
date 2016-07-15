@@ -36,6 +36,13 @@ class EspiralApi extends EspiralAdapter{
     }
 
     /**
+     * @param EspiralAdapter $adapter
+     */
+    public function setAdapter(EspiralAdapter $adapter){
+        $this->adapter = $adapter;
+    }
+
+    /**
      * @param $uri
      * @param $parameters
      * @param string $method

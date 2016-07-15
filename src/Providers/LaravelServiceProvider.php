@@ -18,5 +18,6 @@ class LaravelServiceProvider extends AbstractServiceProvider{
     public function boot(){
         $path = realpath(__DIR__.'/../../config/config.php');
         $this->publishes([$path => config_path('espiral.php')], 'config');
+        $this->mergeConfigFrom($path, 'espiral');
     }
 }

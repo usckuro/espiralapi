@@ -29,6 +29,13 @@ abstract class AbstractServiceProvider extends ServiceProvider{
     protected $app;
 
     /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = true;
+
+    /**
      * Boot service provider
      *
      * @return mixed
@@ -36,51 +43,22 @@ abstract class AbstractServiceProvider extends ServiceProvider{
     abstract public function boot();
 
     public function register(){
-        $this->registerAliases();
-        $this->registerEspiralProvider();
-        $this->registerEspiralApi();
-        $this->registerEACard();
-        $this->registerEASale();
+        $this->app->singleton('easale', function ($app) {
+            return new EASale(new EspiralAdapter($this->config('user'), $this->config('password'), $this->config('mode')));
+        });
+
     }
 
     /**
-     * Bind some aliases.
+     * Get the services provided by the provider.
      *
-     * @return void
+     * @return array
      */
-    protected function registerAliases()
+    public function provides()
     {
-        $this->app->alias('usckuro.espiral.api.provider.espiral', EspiralAdapter::class);
-        $this->app->alias('usckuro.espiral.api.espiralapi', EspiralApi::class);
-        $this->app->alias('usckuro.espiral.api.card', EACard::class);
-        $this->app->alias('usckuro.espiral.api.sale', EASale::class);
+        return [EASale::class];
     }
 
-    /**
-     * Register the bindings for the Espiral provider.
-     *
-     * @return void
-     */
-    protected function registerEspiralProvider()
-    {
-        $this->app->singleton('usckuro.espiral.api.provider.espiral', function ($app) {
-            new EspiralAdapter($this->config('user'), $this->config('password'), $this->config('mode'));
-        });
-    }
-
-    protected function registerEspiralApi(){
-        $this->app->singleton('usckuro.espiral.api.espiralapi', function($app){
-            return new EspiralApi(new EspiralAdapter($this->config('user'), $this->config('password'), $this->config('mode')));
-        });
-    }
-
-    public function registerEACard(){
-        $this->app->singleton('usckuro.espiral.api.card');
-    }
-
-    public function registerEASale(){
-        $this->app->singleton('usckuro.espiral.api.sale');
-    }
 
     /**
      * Merge the given configuration with the existing configuration.
