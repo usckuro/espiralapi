@@ -28,6 +28,8 @@ class CardValidator extends Validator{
                 $this->validateCvv($value);
                 break;
         }
+
+        return $value;
     }
 
     public function validateCardNumber($card){

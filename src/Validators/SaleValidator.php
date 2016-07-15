@@ -18,11 +18,12 @@ use Usckuro\Espiral\Api\Exceptions\EASaleException;
 class SaleValidator extends Validator{
     public function check($value, $field = null){
         $this->validateAmount($value);
+        return $value;
     }
 
     public function validateAmount($value){
         if(!is_numeric($value)){
-            throw new EASaleException('Card number is not numeric');
+            throw new EASaleException('Amount is not numeric');
         }
 
         return true;
