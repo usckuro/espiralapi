@@ -6,6 +6,15 @@
     "api",
     "sales"
   ],
+  "authors": [
+    {
+      "name": "Uscanga Luis",
+      "email": "luis_josue_uscanga@hotmail.com",
+      "role": "Developer"
+    }
+  ],
+  "homepage": "https://github.com/usckuro/espiralapi",
+  "license": "MIT",
   "require": {
     "php": ">=5.3.9",
     "illuminate/auth": "5.1.* || 5.2.*",
