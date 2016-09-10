@@ -18,9 +18,6 @@ use Usckuro\Espiral\Api\Providers\Espiral\EspiralAdapter;
 use GuzzleHttp\Client;
 
 class EspiralApi extends EspiralAdapter{
-
-    const BASE_URI = 'https://osciespiralapp.com/EspiralAPI/recursosweb/servicios/';
-
     protected $adapter;
 
     public function __construct(EspiralAdapter $adapter){
@@ -49,7 +46,7 @@ class EspiralApi extends EspiralAdapter{
      * @return array
      */
     public function sendRequest($uri, $parameters, $method = "POST"){
-        $client = new Client(['base_uri' => self::BASE_URI]);
+        $client = new Client(['base_uri' => env('ESPIRAL_URL')]);
         try {
             $response = $client->request($method, $uri, ['json' => $parameters]);
         }catch (ClientException $e){

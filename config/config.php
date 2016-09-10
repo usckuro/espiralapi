@@ -31,5 +31,7 @@ return [
      * DEC (Decline mode) The transaction is always declined
      * RND (Random mode) Simulates that the transaction is accepted or declined randomly
      */
-    'mode' => env('ESPIRAL_MODE')
+    'mode' => env('ESPIRAL_MODE'),
+
+    'base_url' => env('ESPIRAL_URL')
 ];
